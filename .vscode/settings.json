@@ -1,4 +1,5 @@
 {
-    "solidity.defaultCompiler": "localNodeModule",
-    "solidity.packageDefaultDependenciesDirectory": ""
+  "solidity.defaultCompiler": "localNodeModule",
+  "solidity.packageDefaultDependenciesDirectory": "",
+  "prettier.tabWidth": 2
 }
