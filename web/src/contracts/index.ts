@@ -530,7 +530,8 @@ const saleAnimalTokenAbi: AbiItem[] = [
 ];
 
 const mintAnimalTokenAddress = "0x5a0a59b8A7FDCAdE6968eAE420fB38FBF2d552B2"; // rinkeby
-const saleAnimalTokenAddress = "0x86785008322bA78f63355Dbab6f88562f6Fe7dC6"; // rinkeby
+export const saleAnimalTokenAddress =
+  "0x86785008322bA78f63355Dbab6f88562f6Fe7dC6"; // rinkeby
 
 export const web3 = new Web3(window.ethereum);
 
