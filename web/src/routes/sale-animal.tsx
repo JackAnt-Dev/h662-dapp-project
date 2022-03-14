@@ -17,10 +17,6 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
 
   const getOnSaleAnimalTokens = async () => {
     try {
-      const onSaleAnimalTokenArrayLength = await saleAnimalTokenContract.methods
-        .getOnSaleAnimalTokenArrayLength()
-        .call();
-
       const tempOnSaleArray: IMyAnimalCard[] = [];
 
       const response = await saleAnimalTokenContract.methods
