@@ -70,7 +70,13 @@ const MyAnimalCard: FC<MyAnimalCardProps> = ({
               />
               <InputRightAddon children="Ether" />
             </InputGroup>
-            <Button size="sm" colorScheme="green" mt={2} onClick={onClickSell}>
+            <Button
+              size="sm"
+              colorScheme="green"
+              mt={2}
+              onClick={onClickSell}
+              disabled={!saleStatus}
+            >
               Sell
             </Button>
           </>
