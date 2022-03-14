@@ -1,11 +1,8 @@
-import { Grid } from "@chakra-ui/react";
+import { Flex, Grid } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react";
 import { IMyAnimalCard } from "../components/MyAnimalCard";
 import SaleAnimalCard from "../components/SaleAnimalCard";
-import {
-  mintAnimalTokenContract,
-  saleAnimalTokenContract,
-} from "../web3Config";
+import { saleAnimalTokenContract } from "../web3Config";
 
 interface SaleAnimalProps {
   account: string;
@@ -14,6 +11,8 @@ interface SaleAnimalProps {
 const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
   const [onSaleAnimalCardArray, setOnSaleAnimalCardArray] =
     useState<IMyAnimalCard[]>();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getOnSaleAnimalTokens = async () => {
     try {
@@ -37,15 +36,42 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
     }
   };
 
+  const buyAnimalToken = async (
+    account: string,
+    animalTokenId: string,
+    animalPrice: string
+  ) => {
+    try {
+      if (!account) return;
+
+      const response = await saleAnimalTokenContract.methods
+        .purchaseAnimalToken(animalTokenId)
+        .send({ from: account, value: animalPrice });
+
+      if (response.status) {
+        refreshAll();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const refreshAll = () => {
+    (async () => {
+      setIsLoading(true);
+      await getOnSaleAnimalTokens();
+      // more state-changing functions can be added
+      setIsLoading(false);
+    })();
+  };
+
   useEffect(() => {
-    getOnSaleAnimalTokens();
+    refreshAll();
   }, []);
 
-  useEffect(() => {
-    console.log(onSaleAnimalCardArray);
-  }, [onSaleAnimalCardArray]);
-
-  return (
+  return isLoading ? (
+    <Flex justifyContent="center">Loading</Flex>
+  ) : (
     <Grid mt={4} templateColumns="repeat(4, 1fr)" gap={8}>
       {onSaleAnimalCardArray &&
         onSaleAnimalCardArray.map((v, i) => {
@@ -56,7 +82,7 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
               animalPrice={v.animalPrice}
               animalTokenId={v.animalTokenId}
               account={account}
-              getOnSaleAnimalTokens={getOnSaleAnimalTokens}
+              buyAnimalToken={buyAnimalToken}
             />
           );
         })}

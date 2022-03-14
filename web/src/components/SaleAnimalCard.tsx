@@ -12,7 +12,11 @@ interface SaleAnimalCardProps {
   animalPrice: string;
   animalTokenId: string;
   account: string;
-  getOnSaleAnimalTokens: () => Promise<void>; // void: have no return
+  buyAnimalToken: (
+    account: string,
+    animalTokenId: string,
+    animalPrice: string
+  ) => Promise<void>; // void: have no return
 }
 
 const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
@@ -20,7 +24,7 @@ const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
   animalPrice,
   animalTokenId,
   account,
-  getOnSaleAnimalTokens,
+  buyAnimalToken,
 }) => {
   const [isBuyable, setIsBuyable] = useState<boolean>(false);
 
@@ -37,19 +41,7 @@ const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
   };
 
   const onClickBuy = async () => {
-    try {
-      if (!account) return;
-
-      const response = await saleAnimalTokenContract.methods
-        .purchaseAnimalToken(animalTokenId)
-        .send({ from: account, value: animalPrice });
-
-      if (response.status) {
-        getOnSaleAnimalTokens();
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    buyAnimalToken(account, animalTokenId, animalPrice);
   };
 
   useEffect(() => {
