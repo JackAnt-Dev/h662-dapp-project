@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
-import { mintAnimalTokenContract } from "../contracts";
+import { mintAnimalTokenContract } from "../web3Config";
 import AnimalCard from "../components/AnimalCard";
 
 interface MainProps {

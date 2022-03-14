@@ -7,7 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, FC, useState } from "react";
-import { saleAnimalTokenContract, web3 } from "../contracts";
+import { saleAnimalTokenContract, web3 } from "../web3Config";
 import AnimalCard from "./AnimalCard";
 
 interface MyAnimalCardProps extends IMyAnimalCard {

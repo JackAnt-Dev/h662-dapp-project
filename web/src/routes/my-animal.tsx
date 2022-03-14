@@ -6,7 +6,7 @@ import {
   mintAnimalTokenContract,
   saleAnimalTokenAddress,
   saleAnimalTokenContract,
-} from "../contracts";
+} from "../web3Config";
 
 interface MyAnimalProps {
   account: string;
