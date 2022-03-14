@@ -1,6 +1,11 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react";
-import { mintAnimalTokenContract, web3 } from "../web3Config";
+import {
+  mintAnimalTokenContract,
+  saleAnimalTokenAddress,
+  saleAnimalTokenContract,
+  web3,
+} from "../web3Config";
 import AnimalCard from "./AnimalCard";
 
 interface SaleAnimalCardProps {
@@ -8,6 +13,7 @@ interface SaleAnimalCardProps {
   animalPrice: string;
   animalTokenId: string;
   account: string;
+  getOnSaleAnimalTokens: () => Promise<void>; // void: have no return
 }
 
 const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
@@ -15,6 +21,7 @@ const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
   animalPrice,
   animalTokenId,
   account,
+  getOnSaleAnimalTokens,
 }) => {
   const [isBuyable, setIsBuyable] = useState<boolean>(false);
 
@@ -30,6 +37,22 @@ const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
     }
   };
 
+  const onClickBuy = async () => {
+    try {
+      if (!account) return;
+
+      const response = await saleAnimalTokenContract.methods
+        .purchaseAnimalToken(animalTokenId)
+        .send({ from: account, value: animalPrice });
+
+      if (response.status) {
+        getOnSaleAnimalTokens();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getAnimalTokenOwner();
   }, []);
@@ -39,7 +62,13 @@ const SaleAnimalCard: FC<SaleAnimalCardProps> = ({
       <AnimalCard animalType={animalType} />
       <Box>
         <Text d="inline-block">{web3.utils.fromWei(animalPrice)} Ethers</Text>
-        <Button size="sm" colorScheme="green" disabled={!isBuyable}>
+        <Button
+          size="sm"
+          colorScheme="green"
+          m={2}
+          disabled={!isBuyable}
+          onClick={onClickBuy}
+        >
           Buy
         </Button>
       </Box>
