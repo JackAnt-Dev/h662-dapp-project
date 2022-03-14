@@ -2,7 +2,6 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react";
 import {
   mintAnimalTokenContract,
-  saleAnimalTokenAddress,
   saleAnimalTokenContract,
   web3,
 } from "../web3Config";

@@ -12,7 +12,7 @@ interface SaleAnimalProps {
 }
 
 const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
-  const [saleAnimalCardArray, setSaleAnimalCardArray] =
+  const [onSaleAnimalCardArray, setOnSaleAnimalCardArray] =
     useState<IMyAnimalCard[]>();
 
   const getOnSaleAnimalTokens = async () => {
@@ -39,7 +39,7 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
         tempOnSaleArray.push({ animalTokenId, animalType, animalPrice });
       }
 
-      setSaleAnimalCardArray(tempOnSaleArray);
+      setOnSaleAnimalCardArray(tempOnSaleArray);
     } catch (error) {
       console.error(error);
     }
@@ -50,13 +50,13 @@ const SaleAnimal: FC<SaleAnimalProps> = ({ account }) => {
   }, []);
 
   useEffect(() => {
-    console.log(saleAnimalCardArray);
-  }, [saleAnimalCardArray]);
+    console.log(onSaleAnimalCardArray);
+  }, [onSaleAnimalCardArray]);
 
   return (
     <Grid mt={4} templateColumns="repeat(4, 1fr)" gap={8}>
-      {saleAnimalCardArray &&
-        saleAnimalCardArray.map((v, i) => {
+      {onSaleAnimalCardArray &&
+        onSaleAnimalCardArray.map((v, i) => {
           return (
             <SaleAnimalCard
               key={i}
