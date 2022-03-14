@@ -55,6 +55,42 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_animalTokenOwner",
+						"type": "address"
+					}
+				],
+				"name": "getAnimalTokens",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "animalTokenId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "animalType",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "animalPrice",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct SaleAnimalToken.AnimalTokenData[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getOnSaleAnimalTokenArrayLength",
 				"outputs": [
@@ -251,19 +287,19 @@
 			]
 		},
 		"contracts/MintAnimalToken.sol": {
-			"keccak256": "0x9de1eba37136c5927289ac64bac59f5076655ff5a5be9b49b5393dfd9f3e3a53",
+			"keccak256": "0xc7fc4ee8858351bc6fd6d3e08c2269c67253d6a025b8f0af4b70898152c24932",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b90f9a8063ec94fa09f869f7d46987f8f71a424f8cf726eb877b14406138b001",
-				"dweb:/ipfs/QmcDREiqMhoDmekasdvNpsqeZTJykZuLgsUyjxRP3gu895"
+				"bzz-raw://da3acdd736ccfc96354cd49d703f2b4cecd2d2885084bcc9819586be4c3cfbae",
+				"dweb:/ipfs/QmUafPhBZHxzD54BXSfWjF1NekRrEVcuiMeHXdvBQK7YMC"
 			]
 		},
 		"contracts/SaleAnimalToken.sol": {
-			"keccak256": "0xfa042a4a4deb6843f5d58fde420f034b5a92fbff33aaabd94987d83742676a4d",
+			"keccak256": "0x8657ad5203366c1cbb544dcc875e018df54c25b8de37d427e7043a3bf7a8534e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://dd2aca4012920c1628ea20c769e1d1d9948c56ff33acc940fd986dca42b89d16",
-				"dweb:/ipfs/QmR5GwiSa4WHkFh6F5zPMSFvAEhg4oyMLxRtq4jRuzCNZX"
+				"bzz-raw://0a674c58ab64aa5a13c212f5dced5f7fd61dc2551749d185768fb9e838bf4657",
+				"dweb:/ipfs/QmNaUh79EH3Lzxs4wvtqMUXaNtWe6sqEATNV6it1sRfADA"
 			]
 		}
 	},

@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import {MintAnimalToken} from "./MintAnimalToken.sol";
+import "./MintAnimalToken.sol";
 
 contract SaleAnimalToken {
     MintAnimalToken public mintAnimalTokenAddress;  // token address for sale
@@ -12,6 +12,12 @@ contract SaleAnimalToken {
     }
 
     mapping(uint256 => uint256) public animalTokenPrices;   // tokenId => price
+
+    struct AnimalTokenData {
+        uint256 animalTokenId;
+        uint256 animalType;
+        uint256 animalPrice;
+    }
 
     uint256[] public onSaleAnimalTokenArray;
 
@@ -28,6 +34,24 @@ contract SaleAnimalToken {
 
         animalTokenPrices[_animalTokenId] = _price;
         onSaleAnimalTokenArray.push(_animalTokenId);
+    }
+
+    function getAnimalTokens(address _animalTokenOwner) view public returns (AnimalTokenData[] memory) {    // string or array need storage type (memory / storage)
+        uint256 balanceLength = mintAnimalTokenAddress.balanceOf(_animalTokenOwner);
+
+        require(balanceLength != 0, "Owner did not have token.");
+
+        AnimalTokenData[] memory animalTokenData = new AnimalTokenData[](balanceLength);    // array length initialize
+
+        for (uint256 i=0; i < balanceLength; i++) {
+            uint256 animalTokenId = mintAnimalTokenAddress.tokenOfOwnerByIndex(_animalTokenOwner, i);
+            uint256 animalType = mintAnimalTokenAddress.animalTypes(animalTokenId);
+            uint256 animalPrice = animalTokenPrices[animalTokenId];
+
+            animalTokenData[i] = AnimalTokenData(animalTokenId, animalType, animalPrice);
+        }
+
+        return animalTokenData;
     }
 
     function purchaseAnimalToken(uint256 _animalTokenId) public payable {

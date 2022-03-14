@@ -26,7 +26,7 @@ const MyAnimal: FC<MyAnimalProps> = ({ account }) => {
 
       const tempAnimalCardArray: IMyAnimalCard[] = [];
 
-      const response = await mintAnimalTokenContract.methods
+      const response = await saleAnimalTokenContract.methods
         .getAnimalTokens(account)
         .call();
 
