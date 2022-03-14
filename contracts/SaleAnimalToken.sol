@@ -36,7 +36,14 @@ contract SaleAnimalToken {
         onSaleAnimalTokenArray.push(_animalTokenId);
     }
 
-    function getAnimalTokens(address _animalTokenOwner) view public returns (AnimalTokenData[] memory) {    // string or array need storage type (memory / storage)
+    function getAnimalTokenById(uint256 _animalTokenId) public view returns (AnimalTokenData memory) {
+        uint256 animalTokenId = _animalTokenId;
+        uint256 animalType = mintAnimalTokenAddress.animalTypes(animalTokenId);
+        uint256 animalPrice = animalTokenPrices[animalTokenId];
+        return AnimalTokenData(animalTokenId, animalType, animalPrice);
+    }
+
+    function getAnimalTokens(address _animalTokenOwner) public view returns (AnimalTokenData[] memory) {    // string or array need storage type (memory / storage)
         uint256 balanceLength = mintAnimalTokenAddress.balanceOf(_animalTokenOwner);
 
         require(balanceLength != 0, "Owner did not have token.");
@@ -45,10 +52,7 @@ contract SaleAnimalToken {
 
         for (uint256 i=0; i < balanceLength; i++) {
             uint256 animalTokenId = mintAnimalTokenAddress.tokenOfOwnerByIndex(_animalTokenOwner, i);
-            uint256 animalType = mintAnimalTokenAddress.animalTypes(animalTokenId);
-            uint256 animalPrice = animalTokenPrices[animalTokenId];
-
-            animalTokenData[i] = AnimalTokenData(animalTokenId, animalType, animalPrice);
+            animalTokenData[i] = getAnimalTokenById(animalTokenId);
         }
 
         return animalTokenData;
@@ -81,5 +85,14 @@ contract SaleAnimalToken {
 
     function getAnimalTokenPrice(uint256 _animalTokenId) public view returns (uint256) {
         return animalTokenPrices[_animalTokenId];
+    }
+
+    function getOnSaleAnimalTokens() view public returns (AnimalTokenData[] memory) {
+        AnimalTokenData[] memory animalTokenData = new AnimalTokenData[](onSaleAnimalTokenArray.length);
+        
+        for (uint256 i=0; i<onSaleAnimalTokenArray.length; i++) {
+            animalTokenData[i] = getAnimalTokenById(onSaleAnimalTokenArray[i]);
+        }
+        return animalTokenData;
     }
 }

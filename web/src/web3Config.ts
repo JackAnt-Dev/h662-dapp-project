@@ -509,6 +509,42 @@ const saleAnimalTokenAbi: AbiItem[] = [
         type: "uint256",
       },
     ],
+    name: "getAnimalTokenById",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "animalTokenId",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "animalType",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "animalPrice",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct SaleAnimalToken.AnimalTokenData",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_animalTokenId",
+        type: "uint256",
+      },
+    ],
     name: "getAnimalTokenPrice",
     outputs: [
       {
@@ -571,6 +607,36 @@ const saleAnimalTokenAbi: AbiItem[] = [
   },
   {
     inputs: [],
+    name: "getOnSaleAnimalTokens",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "animalTokenId",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "animalType",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "animalPrice",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct SaleAnimalToken.AnimalTokenData[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "mintAnimalTokenAddress",
     outputs: [
       {
@@ -603,9 +669,9 @@ const saleAnimalTokenAbi: AbiItem[] = [
   },
 ];
 
-const mintAnimalTokenAddress = "0x2a85a7cFE17237B6CA07Fa2C7a7B59Ecf5D5225A"; // rinkeby
+const mintAnimalTokenAddress = "0x51512fc9F7B75A0f9E6C558391082B56e8C35CAE"; // rinkeby
 export const saleAnimalTokenAddress =
-  "0x94024df644c4E29d595Bb446d9d2ABD8c68F0c0a"; // rinkeby
+  "0xC82355eF4Bc970a79c06Ef6479F543c0e311f692"; // rinkeby
 
 export const web3 = new Web3(window.ethereum);
 
